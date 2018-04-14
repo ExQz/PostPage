@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend.DataObjects;
 
-namespace backend.Services
+namespace backend.Repositories
 {
-    public interface IPostService
+    public interface IPostRepository
     {
         Task<ICollection<Post>> GetAllPosts(int limit);
         Task<Post> GetPost(long id);
-        Task<long> CreatePost(PostObject postObj);
-        Task<long> UpdatePost(PostObject postObj, long id);
+        Task<long> CreatePost(PostObject pos);
+        Task<long> UpdatePost(PostObject post, long id);
         Task<long> DeletePost(long id);
 
     }

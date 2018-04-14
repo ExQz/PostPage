@@ -1,13 +1,11 @@
-﻿using System;
+﻿using backend.DataObjects;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using backend.DataObjects;
 using backend.Models;
 
-namespace backend.Services
+namespace backend.Repositories
 {
-    public interface ICommentService
+    public interface ICommentRepository
     {
         Task<ICollection<Comment>> GetAllComments(int limit, long postId);
         Task<Comment> GetComment(long commentId);
