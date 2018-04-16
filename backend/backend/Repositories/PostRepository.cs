@@ -21,7 +21,7 @@ namespace backend.Repositories
 
         public async Task<ICollection<Post>> GetAllPosts(int limit)
         {
-            return await _database.Posts.Include(x => x.Comments).Take(limit).ToArrayAsync();
+            return await _database.Posts.Include(x => x.Comments).Take(limit).OrderByDescending(y => y.CreateDate).ToArrayAsync();
         }
 
         public async Task<Post> GetPost(long id)

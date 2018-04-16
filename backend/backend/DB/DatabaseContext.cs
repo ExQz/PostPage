@@ -10,6 +10,11 @@ namespace backend.DB
     public class DatabaseContext : DbContext
     {
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Data Source=blog.db");
+        }
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 

@@ -1,0 +1,17 @@
+
+
+
+.panel-primary {
+  margin: auto;
+  max-width: 500px;
+}
+
+.panel-body {
+  margin: auto;
+  max-width: 500px;
+}
+
+.center {
+  margin: auto;
+  text-align: center;
+}

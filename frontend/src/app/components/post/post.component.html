@@ -1,0 +1,15 @@
+<div class="card move-down size" *ngIf="post">
+  <div class="card-header color">
+    <h4 class="clickable center" (click)="open(post.id)">{{post.title}}</h4>
+  </div>
+  <div class="card-body justify-content-end">
+    <h4 class="card-title">{{post.author}}</h4>
+    <p class="card-text">{{post.text}}</p>
+  </div>
+  <div class="card-footer justify-content-end">
+    <div id="justify">
+      <p class="space">{{post.createDate | date: "yyyy.MM.dd hh:mm"}}</p>
+      <p class="space">Comment Count: {{post.commentCount}}</p>
+    </div>
+  </div>
+</div>

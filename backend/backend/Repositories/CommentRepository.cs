@@ -11,12 +11,6 @@ namespace backend.Repositories
 {
     public class CommentRepository : ICommentRepository
     {
-    //    private DatabaseContext _database;
-
-    //    public PostRepository(DatabaseContext database)
-    //    {
-    //        _database = database;
-    //    }
 
         private DatabaseContext _database;
 
@@ -26,7 +20,7 @@ namespace backend.Repositories
         }
         public async Task<ICollection<Comment>> GetAllComments(int limit, long postId)
         {
-            return await _database.Comments.Where(i => i.PostId == postId).Take(limit).ToArrayAsync();
+            return await _database.Comments.Where(i => i.PostId == postId).Take(limit).OrderByDescending(y => y.CreateDate).ToArrayAsync();
         }
 
         public async Task<Comment> GetComment(long commentId)

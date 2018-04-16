@@ -23,7 +23,7 @@ namespace backend.Controllers
 
         // GET: api/<controller>
         [HttpGet]
-        public async Task<IEnumerable<PostObject>> GetAll(int limit = 10)
+        public async Task<IEnumerable<PostObject>> GetAll(int limit = 15)
         {
             var posts = await _postService.GetAllPosts(limit);
             var postObjectList = new List<PostObject>();
@@ -82,14 +82,14 @@ namespace backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put([FromRoute]int id, [FromBody]PostObject postObject)
         {
-            var updatedId = _postService.UpdatePost(postObject, id);
+            var updatedId = await  _postService.UpdatePost(postObject, id);
            
-            if (updatedId.Result == -1)
+            if (updatedId == -1)
             {
                 return NotFound();
             }
 
-            return Ok(updatedId.Result);
+            return Ok(updatedId);
         }
 
         // DELETE api/<controller>/5

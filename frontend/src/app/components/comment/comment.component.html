@@ -1,0 +1,52 @@
+
+<div *ngIf="!editMode">
+  <div class="card spacing-between" *ngIf="comment">
+    <div class="card-header color" >
+      <h5 class="center">{{comment.author}}</h5>
+    </div>
+    <div class="card-body justify-content-end">
+      <p class="card-text">{{comment.text}}</p>
+      <div id="justify">
+        <button (click)="changeMode()" class="btn btn-primary space">Edit</button>
+        <button (click)="delete()" class="btn btn-primary space">Delete</button>
+      </div>
+    </div>
+    <div class="card-footer justify-content-end">
+      <div id="justify">
+        <p class="space">{{comment.createDate | date: "yyyy.MM.dd hh:mm"}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="editMode">
+  <div class="card move-down" *ngIf="comment">
+    <div class="panel-primary">
+    <div class="card-header commentColor" >
+      <h5 class="center">Edit Comment</h5>
+    </div>
+      <div class="panel-body">
+        <form [formGroup]="angForm" novalidate>
+          <div class="form-group">
+            <label class="col-md-4">Author</label>
+            <input type="text" class="form-control" [(ngModel)]="comment.author" formControlName="comAuthor" #comAuthor />
+          </div>
+          <div *ngIf="angForm.controls['comAuthor'].invalid && (angForm.controls['comAuthor'].dirty || angForm.controls['comText'].touched)" class="alert alert-danger">
+            Email is required.
+          </div>         
+          <div class="form-group">
+            <label class="col-md-4">Comment</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="comment.text" formControlName="comText" #comText > </textarea>
+          </div>
+          <div *ngIf="angForm.controls['comText'].invalid && (angForm.controls['comText'].dirty || angForm.controls['comText'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['comText'].errors.required">
+              Comment is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <button (click)="update(comAuthor.value, comText.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

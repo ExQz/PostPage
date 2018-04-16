@@ -1,0 +1,104 @@
+<div class="container size">
+  <div *ngIf="!editMode">
+    <div class="card" *ngIf="post">
+      <div class="card-header color">
+        <h4 class="center">{{post.title}}</h4>
+      </div>
+      <div class="card-body justify-content-end">
+        <h4 class="card-title">{{post.author}}</h4>
+        <p class="card-text">{{post.text}}</p>
+        <div id="justify">
+          <button (click)="changeMode()" class="btn btn-primary space">Edit</button>
+
+          <button (click)="delete()" class="btn btn-primary space">Delete</button>
+        </div>
+      </div>
+      <div class="card-footer justify-content-end">
+        <div id="justify">
+          <p class="space">{{post.createDate | date: "yyyy.MM.dd hh:mm"}}</p>
+          <p class="space">Comment Count: {{post.commentCount}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="editMode">
+    <div class="card move-down" *ngIf="post">
+      <div class="panel-primary">
+        <div class="card-header color">
+          <h5 class="center">Edit Post</h5>
+        </div>
+        <div class="panel-body">
+          <form [formGroup]="editForm" novalidate>
+            <div class="form-group">
+              <label class="col-md-4">Author</label>
+              <input type="text" class="form-control" [(ngModel)]="post.author" formControlName="author" #author />
+            </div>
+            <div *ngIf="editForm.controls['author'].invalid && (editForm.controls['author'].dirty || editForm.controls['author'].touched)" class="alert alert-danger">
+              Email is required.
+            </div>
+            <div class="form-group">
+              <label class="col-md-4">Title</label>
+              <input type="text" class="form-control" [(ngModel)]="post.title" formControlName="title" #title />
+            </div>
+            <div *ngIf="editForm.controls['title'].invalid && (editForm.controls['title'].dirty || editForm.controls['title'].touched)" class="alert alert-danger">
+              <div *ngIf="editForm.controls['title'].errors.required">
+                Title is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4">Text</label>
+              <textarea class="form-control" rows="3" [(ngModel)]="post.text" formControlName="text" #text> </textarea>
+            </div>
+            <div *ngIf="editForm.controls['text'].invalid && (editForm.controls['text'].dirty || editForm.controls['text'].touched)" class="alert alert-danger">
+              <div *ngIf="editForm.controls['text'].errors.required">
+                Messege is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <button (click)="update(author.value, title.value, text.value)" [disabled]="editForm.pristine || editForm.invalid" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div *ngIf="post">
+      <div class="card move-down">
+        <div class="panel-primary">
+          <div class="card-header commentColor">
+            <h5 class="center">Add New Comment</h5>
+          </div>
+          <div class="panel-body">
+            <form [formGroup]="angForm" novalidate>
+              <div class="form-group">
+                <label class="col-md-4">Author</label>
+                <input type="text" class="form-control" formControlName="comAuthor" #comAuthor />
+              </div>
+              <div *ngIf="angForm.controls['comAuthor'].invalid && (angForm.controls['comAuthor'].dirty || angForm.controls['comAuthor'].touched)" class="alert alert-danger">
+                Email is required.
+              </div>
+              <div class="form-group">
+                <label class="col-md-4">Comment</label>
+                <textarea class="form-control" rows="3" formControlName="comText" #comText> </textarea>
+              </div>
+              <div *ngIf="angForm.controls['comText'].invalid && (angForm.controls['comText'].dirty || angForm.controls['comText'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['comText'].errors.required">
+                  Comment is required.
+                </div>
+              </div>
+              <div class="form-group">
+                <button (click)="createNewComment(comAuthor.value, comText.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <app-comment *ngFor="let comment of comments, let i = index"
+                   [comment]="comments[i]">
+
+      </app-comment>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+.bottom-line {
+  border-bottom: solid;
+  color: rgba(24, 135, 220, 0.35);
+}
+
+.spacing-between {
+  margin-top: 15px;
+}
